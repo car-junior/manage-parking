@@ -8,8 +8,8 @@ CREATE TABLE dbo.company
     address                     VARCHAR(255) NOT NULL,
     phone_number                VARCHAR(11)  NOT NULL,
     number_spaces_motorcycles   INT4         NOT NULL,
-    occupied_spaces_motorcycles INT4         NOT NULL DEFAULT (0),
     number_spaces_cars          INT4         NOT NULL,
-    occupied_spaces_cars        INT4         NOT NULL DEFAULT (0),
+    occupied_spaces_motorcycles INT4,
+    occupied_spaces_cars        INT4,
     PRIMARY KEY (id)
 );
