@@ -4,7 +4,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
-public record CompanyCreate(
+public record CompanyCreateDto(
         @NotNull @NotEmpty String name,
         @NotNull @NotEmpty String cnpj,
         @NotNull @NotEmpty String address,
