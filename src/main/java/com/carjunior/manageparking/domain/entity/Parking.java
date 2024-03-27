@@ -11,13 +11,13 @@ import java.util.Objects;
 @Getter
 @Setter
 @Builder(toBuilder = true)
-@Table(name = "company", schema = "dbo")
+@Table(name = "parking", schema = "dbo")
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@SequenceGenerator(name = "company_sequence", schema = "dbo", allocationSize = 1)
-public class Company {
+@SequenceGenerator(name = "parking_sequence", schema = "dbo", allocationSize = 1)
+public class Parking {
     @Id
-    @GeneratedValue(generator = "company_sequence", strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(generator = "parking_sequence", strategy = GenerationType.SEQUENCE)
     private long id;
 
     @Column(name = "name", nullable = false)
@@ -52,8 +52,8 @@ public class Company {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Company company = (Company) o;
-        return id == company.id;
+        Parking parking = (Parking) o;
+        return id == parking.id;
     }
 
     @Override

@@ -1,8 +1,8 @@
-CREATE SEQUENCE IF NOT EXISTS dbo.company_sequence START 1 INCREMENT 1;
+CREATE SEQUENCE IF NOT EXISTS dbo.parking_sequence START 1 INCREMENT 1;
 
-CREATE TABLE dbo.company
+CREATE TABLE dbo.parking
 (
-    id                          INT8         NOT NULL DEFAULT NEXTVAL('dbo.company_sequence'),
+    id                          INT8         NOT NULL DEFAULT NEXTVAL('dbo.parking_sequence'),
     name                        VARCHAR(255) NOT NULL,
     cnpj                        VARCHAR(14)  NOT NULL,
     address                     VARCHAR(255) NOT NULL,

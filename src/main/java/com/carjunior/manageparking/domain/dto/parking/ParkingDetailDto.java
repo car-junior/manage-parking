@@ -1,4 +1,4 @@
-package com.carjunior.manageparking.domain.dto.company;
+package com.carjunior.manageparking.domain.dto.parking;
 
 import lombok.*;
 
@@ -7,15 +7,12 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CompanyListDto {
+public class ParkingDetailDto {
     private long id;
     private String name;
-    private String cnpj;
     private String address;
     private String phoneNumber;
     private Integer numberSpacesMotorcycles;
     private Integer numberSpacesCars;
-    private Integer occupiedSpacesMotorcycles;
-    private Integer occupiedSpacesCar;
 }
 

@@ -21,8 +21,8 @@ public class ParkingControl {
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "company_id")
-    private Company company;
+    @JoinColumn(name = "parking_id")
+    private Parking parking;
 
     @ManyToOne
     @JoinColumn(name = "vehicle_id")

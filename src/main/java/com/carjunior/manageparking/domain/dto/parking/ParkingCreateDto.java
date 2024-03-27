@@ -1,10 +1,10 @@
-package com.carjunior.manageparking.domain.dto.company;
+package com.carjunior.manageparking.domain.dto.parking;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
-public record CompanyCreateDto(
+public record ParkingCreateDto(
         @NotNull @NotEmpty String name,
         @NotNull @NotEmpty String cnpj,
         @NotNull @NotEmpty String address,
