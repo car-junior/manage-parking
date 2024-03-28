@@ -9,7 +9,7 @@ import org.hibernate.validator.constraints.br.CNPJ;
 
 import static com.carjunior.manageparking.domain.utils.Utility.onlyNumbers;
 
-public record ParkingCreateDto(
+public record ParkingCreateUpdateDto(
         @NotNull @NotEmpty String name,
         @NotNull @NotEmpty @CNPJ String cnpj,
         @NotNull @NotEmpty String address,
@@ -17,11 +17,15 @@ public record ParkingCreateDto(
         @NotNull @Positive @Min(10) Integer numberSpacesMotorcycles,
         @NotNull @Positive @Min(10) Integer numberSpacesCars
 ) {
-    public ParkingCreateDto {
-        name = name.trim();
-        cnpj = onlyNumbers(cnpj);
-        address = address.trim();
-        phoneNumber = onlyNumbers(phoneNumber);
+    public ParkingCreateUpdateDto {
+        if (name != null)
+            name = name.trim();
+        if (cnpj != null)
+            cnpj = onlyNumbers(cnpj);
+        if (address != null)
+            address = address.trim();
+        if (phoneNumber != null)
+            phoneNumber = onlyNumbers(phoneNumber);
     }
 }
 

@@ -5,5 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 public interface ParkingRepository extends JpaRepository<Parking, Long>, JpaSpecificationExecutor<Parking> {
-    boolean existsParkingByCnpj(String cnpj);
+    boolean existsParkingByCnpjAndIdNot(String cnpj, long id);
+    boolean existsParkingById(long id);
 }
