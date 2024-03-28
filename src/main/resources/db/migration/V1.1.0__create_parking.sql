@@ -4,8 +4,8 @@ CREATE TABLE dbo.parking
 (
     id                          INT8         NOT NULL DEFAULT NEXTVAL('dbo.parking_sequence'),
     name                        VARCHAR(255) NOT NULL,
-    cnpj                        VARCHAR(14)  NOT NULL,
-    address                     VARCHAR(255) NOT NULL,
+    cnpj                        VARCHAR(14)  NOT NULL UNIQUE,
+    address                     VARCHAR(255) NOT NULL UNIQUE,
     phone_number                VARCHAR(11)  NOT NULL,
     number_spaces_motorcycles   INT4         NOT NULL,
     number_spaces_cars          INT4         NOT NULL,

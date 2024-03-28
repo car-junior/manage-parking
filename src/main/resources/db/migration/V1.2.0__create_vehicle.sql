@@ -12,7 +12,7 @@ CREATE TABLE dbo.vehicle
     mark  VARCHAR(255) NOT NULL,
     model VARCHAR(255) NOT NULL,
     color VARCHAR(255) NOT NULL,
-    plate VARCHAR(11)  NOT NULL,
+    plate VARCHAR(11)  NOT NULL UNIQUE,
     type  VARCHAR(30)  NOT NULL,
     PRIMARY KEY (id)
 );

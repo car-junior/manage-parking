@@ -1,4 +1,4 @@
-package com.carjunior.manageparking.domain.configuration;
+package com.carjunior.manageparking.configuration;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
