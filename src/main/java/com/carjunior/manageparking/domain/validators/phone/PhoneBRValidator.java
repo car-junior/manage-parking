@@ -33,12 +33,12 @@ public class PhoneBRValidator implements ConstraintValidator<PhoneBR, String> {
             return false;
         }
 
+        phoneNumber = phoneNumber.replace("\\d", "");
         if (isInvalidSizePhoneNumber(phoneNumber)) {
             context.buildConstraintViolationWithTemplate("phoneNumber size is invalid.").addConstraintViolation();
             return false;
         }
 
-        phoneNumber = phoneNumber.replace("\\d", "");
         var messages = new ArrayList<String>();
         var isValid = true;
 

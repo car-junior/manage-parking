@@ -8,9 +8,14 @@ import org.springframework.data.domain.Sort;
 import org.springframework.lang.NonNull;
 
 import java.text.Normalizer;
+import java.util.Optional;
 
 public final class Utility {
     private Utility() {}
+
+    public static boolean isPresent(Object value) {
+        return Optional.ofNullable(value).isPresent();
+    }
 
     public static String onlyNumbers(@NonNull String value) {
         return value.replace("\\d", "");

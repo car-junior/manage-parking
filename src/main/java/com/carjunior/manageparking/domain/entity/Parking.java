@@ -44,7 +44,7 @@ public class Parking {
     @Column(name = "occupied_spaces_cars")
     private Integer occupiedSpacesCars;
 
-    @OneToMany
+    @OneToMany(mappedBy = "parking")
     @Builder.Default
     List<ParkingControl> parkingControls = new ArrayList<>();
 
