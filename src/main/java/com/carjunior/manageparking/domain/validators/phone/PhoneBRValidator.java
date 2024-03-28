@@ -5,10 +5,9 @@ import jakarta.validation.ConstraintValidatorContext;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.regex.Pattern;
 
 import static java.lang.Integer.parseInt;
-import static java.lang.String.format;
 
 public class PhoneBRValidator implements ConstraintValidator<PhoneBR, String> {
     private final List<Integer> codeDDDs = List.of(
@@ -21,8 +20,9 @@ public class PhoneBRValidator implements ConstraintValidator<PhoneBR, String> {
             86, 87, 88, 89, 91, 92, 93, 94, 95,
             96, 97, 98, 99
     );
-
     private final List<Integer> prefixes = List.of(2, 3, 4, 5, 7);
+    private final Integer sizeLandlinePhone = 10;
+    private final Integer sizeMobilePhone = 11;
 
     @Override
     public boolean isValid(String phoneNumber, ConstraintValidatorContext context) {
@@ -33,30 +33,31 @@ public class PhoneBRValidator implements ConstraintValidator<PhoneBR, String> {
             return false;
         }
 
+        if (isInvalidSizePhoneNumber(phoneNumber)) {
+            context.buildConstraintViolationWithTemplate("phoneNumber size is invalid.").addConstraintViolation();
+            return false;
+        }
+
         phoneNumber = phoneNumber.replace("\\d", "");
         var messages = new ArrayList<String>();
         var isValid = true;
 
-        if (phoneNumber.length() < 10 || phoneNumber.length() > 11)
-            messages.add("phoneNumber size is invalid.");
+        if (isInvalidDDD(phoneNumber))
+            messages.add("DDD of the phoneNumber is invalid.");
 
-        Optional.of(phoneNumber)
-                .filter(pn -> pn.length() == 11)
-                .map(pn -> parseInt(pn.substring(2, 3)))
-                .filter(digit -> digit != 9)
-                .ifPresent(digit -> messages.add(
-                        format("mobile phoneNumber is invalid. Digit %d no is valid, wait a digit 9.", digit))
-                );
+        if (phoneNumber.length() == sizeMobilePhone) {
+            if (isMobilePhoneInvalidNineDigit(phoneNumber))
+                messages.add("mobile phoneNumber is invalid. Nine-digit is invalid, wait a digit 9.");
 
-        Optional.of(phoneNumber)
-                .filter(pn -> pn.length() == 10)
-                .map(pn -> parseInt(pn.substring(2, 3)))
-                .filter(digit -> !prefixes.contains(digit))
-                .ifPresent(digit -> messages.add("fix phoneNumber is invalid"));
+            if (isInvalidMobilePhoneRepeated(phoneNumber))
+                messages.add("mobile phoneNumber is invalid.");
+        } else {
+            if (isLandLinePhoneInvalidPrefix(phoneNumber))
+                messages.add("prefix landLine phoneNumber is invalid.");
 
-        final Integer DDD = parseInt(phoneNumber.substring(0, 2));
-        if (!codeDDDs.contains(DDD))
-            messages.add(format("DDD(%d) of the phoneNumber is invalid.", DDD));
+            if (isInvalidLandLinePhoneRepeated(phoneNumber))
+                messages.add("landLine phoneNumber is invalid.");
+        }
 
         if (!messages.isEmpty()) {
             setMessagesConstraintViolation(context, messages);
@@ -68,5 +69,39 @@ public class PhoneBRValidator implements ConstraintValidator<PhoneBR, String> {
 
     private void setMessagesConstraintViolation(ConstraintValidatorContext context, List<String> messages) {
         messages.forEach(m -> context.buildConstraintViolationWithTemplate(m).addConstraintViolation());
+    }
+
+    private boolean isInvalidSizePhoneNumber(String phoneNumber) {
+        return phoneNumber.length() < sizeLandlinePhone || phoneNumber.length() > sizeMobilePhone;
+    }
+
+    private boolean isMobilePhoneInvalidNineDigit(String phoneNumber) {
+        final int nineDigit = 9;
+        return parseInt(phoneNumber.substring(2, 3)) != nineDigit;
+    }
+
+    private boolean isLandLinePhoneInvalidPrefix(String phoneNumber) {
+        return !prefixes.contains(parseInt(phoneNumber.substring(2, 3)));
+    }
+
+    private boolean isInvalidDDD(String phoneNumber) {
+        return !codeDDDs.contains(parseInt(phoneNumber.substring(0, 2)));
+    }
+
+    private boolean isInvalidMobilePhoneRepeated(String phoneNumber) {
+        final String mobilePhoneJustWithDigitsNine = "99999999999";
+        return isEqualsPhoneSequenceWithPhoneNumber(phoneNumber)
+                && !phoneNumber.equals(mobilePhoneJustWithDigitsNine);
+    }
+
+    private boolean isInvalidLandLinePhoneRepeated(String phoneNumber) {
+        return isEqualsPhoneSequenceWithPhoneNumber(phoneNumber)
+                && (isLandLinePhoneInvalidPrefix(phoneNumber) || isInvalidDDD(phoneNumber));
+    }
+
+    private boolean isEqualsPhoneSequenceWithPhoneNumber(String phoneNumber) {
+        final String sizeSequence = "{" + phoneNumber.length() + "}";
+        final Pattern pattern = Pattern.compile(phoneNumber.charAt(0) + sizeSequence);
+        return pattern.matcher(phoneNumber).find();
     }
 }
