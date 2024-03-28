@@ -1,7 +1,6 @@
 package com.carjunior.manageparking.domain.dto.parking;
 
-import com.carjunior.manageparking.domain.utils.Utililty;
-import com.carjunior.manageparking.domain.validators.phonenumber.PhoneNumber;
+import com.carjunior.manageparking.domain.validators.phone.PhoneBR;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -12,9 +11,9 @@ import static com.carjunior.manageparking.domain.utils.Utililty.onlyNumbers;
 
 public record ParkingCreateDto(
         @NotNull @NotEmpty String name,
-        @NotNull @NotEmpty @CNPJ() String cnpj,
+        @NotNull @NotEmpty @CNPJ String cnpj,
         @NotNull @NotEmpty String address,
-        @NotNull @NotEmpty @PhoneNumber String phoneNumber,
+        @NotNull @NotEmpty @PhoneBR String phoneNumber,
         @NotNull @Positive @Min(10) Integer numberSpacesMotorcycles,
         @NotNull @Positive @Min(10) Integer numberSpacesCars
 ) {

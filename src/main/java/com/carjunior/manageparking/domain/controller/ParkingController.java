@@ -25,14 +25,12 @@ public class ParkingController {
         var parking = parkingService.saveParking(modelMapperService.toObject(Parking.class, parkingCreateDto));
         return ResponseEntity.ok(modelMapperService.toObject(ParkingDetailDto.class, parking));
     }
-
     @GetMapping("/{parkingId}")
     public ResponseEntity<ParkingDetailDto> getById(@PathVariable(name = "parkingId") Long parkingId) {
         return ResponseEntity.ok(
                 modelMapperService.toObject(ParkingDetailDto.class, parkingService.getParkingById(parkingId))
         );
     }
-
     @GetMapping
     public ResponseEntity<List<ParkingListDto>> getAll() {
         return ResponseEntity.ok(modelMapperService.toList(ParkingListDto.class, parkingService.getAllParking()));

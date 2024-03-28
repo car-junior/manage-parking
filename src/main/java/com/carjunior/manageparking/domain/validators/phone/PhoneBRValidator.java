@@ -1,4 +1,4 @@
-package com.carjunior.manageparking.domain.validators.phonenumber;
+package com.carjunior.manageparking.domain.validators.phone;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
@@ -10,7 +10,7 @@ import java.util.Optional;
 import static java.lang.Integer.parseInt;
 import static java.lang.String.format;
 
-public class PhoneNumberValidator implements ConstraintValidator<PhoneNumber, String> {
+public class PhoneBRValidator implements ConstraintValidator<PhoneBR, String> {
     private final List<Integer> codeDDDs = List.of(
             11, 12, 13, 14, 15, 16, 17, 18, 19,
             21, 22, 24, 27, 28, 31, 32, 33, 34,
