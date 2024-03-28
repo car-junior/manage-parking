@@ -1,7 +1,9 @@
 package com.carjunior.manageparking.domain.service;
 
+import com.carjunior.manageparking.domain.dto.PageResult;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,7 +15,6 @@ import java.util.stream.Collectors;
 public class ModelMapperService {
     private final ModelMapper modelMapper;
     public <T> List<T> toList(Class<T> clazz, List<?> items) {
-
         return items.stream()
                 .map(item -> modelMapper.map(item, clazz))
                 .toList();
@@ -30,13 +31,13 @@ public class ModelMapperService {
         return modelMapper.map(item, clazz);
     }
 
-//    public <T> PageResult<T> toPage(Class<T> clazz, Page<?> page) {
-//        if (page == null) return new PageResult<>();
-//        return new PageResult<>(
-//                page.getTotalPages(),
-//                page.getTotalElements(),
-//                toList(clazz, page.getContent())
-//        );
-//    }
+    public <T> PageResult<T> toPage(Class<T> clazz, Page<?> page) {
+        if (page == null) return new PageResult<>();
+        return new PageResult<>(
+                page.getTotalPages(),
+                page.getTotalElements(),
+                toList(clazz, page.getContent())
+        );
+    }
 
 }

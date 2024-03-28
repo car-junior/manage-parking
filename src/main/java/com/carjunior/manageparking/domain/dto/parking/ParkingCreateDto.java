@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import org.hibernate.validator.constraints.br.CNPJ;
 
-import static com.carjunior.manageparking.domain.utils.Utililty.onlyNumbers;
+import static com.carjunior.manageparking.domain.utils.Utility.onlyNumbers;
 
 public record ParkingCreateDto(
         @NotNull @NotEmpty String name,

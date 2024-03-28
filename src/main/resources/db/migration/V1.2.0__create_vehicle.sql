@@ -6,7 +6,7 @@ CREATE SEQUENCE IF NOT EXISTS dbo.vehicle_sequence START 1 INCREMENT 1;
 -- Placa/Plate Mercosul: 3 letras e 3 Numeros 1 Letra
 -- exemplo: AAA 1B11
 
-CREATE TABLE dbo.vehicle
+CREATE TABLE IF NOT EXISTS dbo.vehicle
 (
     id    INT8         NOT NULL DEFAULT NEXTVAL('dbo.vehicle_sequence'),
     mark  VARCHAR(255) NOT NULL,
