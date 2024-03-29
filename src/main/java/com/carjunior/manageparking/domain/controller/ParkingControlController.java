@@ -7,10 +7,7 @@ import com.carjunior.manageparking.domain.service.ParkingControlService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,8 +17,16 @@ public class ParkingControlController {
     private final ParkingControlService parkingControlService;
 
     @PostMapping
-    public ResponseEntity<VehicleEntranceDetailDto> vehicleEntrance(@Valid @RequestBody VehicleEntranceDto vehicleEntrance) {
+    public ResponseEntity<VehicleEntranceDetailDto> vehicleEntrance(
+            @Valid @RequestBody VehicleEntranceDto vehicleEntrance) {
         var parkingControl = parkingControlService.createEntrance(vehicleEntrance);
         return ResponseEntity.ok(modelMapperService.toObject(VehicleEntranceDetailDto.class, parkingControl));
+    }
+
+    @PatchMapping("/{parkingControlId}")
+    public ResponseEntity<Void> vehicleExit(
+            @PathVariable(name = "parkingControlId") Long parkingControlId) {
+        parkingControlService.finishEntrance(parkingControlId);
+        return ResponseEntity.noContent().build();
     }
 }
