@@ -39,10 +39,6 @@ public class ParkingControl {
     @Column(name = "exit_datetime")
     private LocalDateTime exitDateTime;
 
-    public LocalDateTime getEntrance() {
-        return entryDateTime;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

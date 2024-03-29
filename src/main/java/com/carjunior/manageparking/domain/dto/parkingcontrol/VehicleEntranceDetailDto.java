@@ -14,6 +14,10 @@ public class VehicleEntranceDetailDto {
     private long id;
     private ParkingDetailDto parking;
     private VehicleDetailDto vehicle;
+    @Setter(AccessLevel.NONE)
     private LocalDateTime entrance;
+    public void setEntryDateTime(LocalDateTime entryDateTime) {
+        this.entrance = entryDateTime;
+    }
 }
 
