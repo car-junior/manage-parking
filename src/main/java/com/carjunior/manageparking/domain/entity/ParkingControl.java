@@ -33,11 +33,15 @@ public class ParkingControl {
     @Enumerated(EnumType.STRING)
     private ParkingControlStatus status = ParkingControlStatus.PARKED;
 
-    @Column(name = "entry_date_time")
+    @Column(name = "entry_datetime")
     private LocalDateTime entryDateTime;
 
-    @Column(name = "exit_date_time")
+    @Column(name = "exit_datetime")
     private LocalDateTime exitDateTime;
+
+    public LocalDateTime getEntrance() {
+        return entryDateTime;
+    }
 
     @Override
     public boolean equals(Object o) {

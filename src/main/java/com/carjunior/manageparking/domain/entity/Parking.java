@@ -56,6 +56,10 @@ public class Parking {
         return id == parking.id;
     }
 
+    public Parking(long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
     @Override
     public int hashCode() {
         return Objects.hash(id);

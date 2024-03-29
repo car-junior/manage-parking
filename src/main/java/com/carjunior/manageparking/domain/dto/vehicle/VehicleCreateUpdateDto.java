@@ -1,8 +1,11 @@
 package com.carjunior.manageparking.domain.dto.vehicle;
 
 import com.carjunior.manageparking.domain.entity.enums.VehicleType;
+import com.carjunior.manageparking.domain.utils.Utility;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+
+import static com.carjunior.manageparking.domain.utils.Utility.onlyAlphaNumbers;
 
 public record VehicleCreateUpdateDto(
         @NotNull @NotEmpty String mark,
@@ -28,7 +31,7 @@ public record VehicleCreateUpdateDto(
 
     @Override
     public String plate() {
-        return plate.trim();
+        return onlyAlphaNumbers(plate).toUpperCase();
     }
 }
 

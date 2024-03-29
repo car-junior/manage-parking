@@ -21,6 +21,10 @@ public final class Utility {
         return value.replace("\\d", "");
     }
 
+    public static String onlyAlphaNumbers(@NonNull String value) {
+        return value.replaceAll("[^A-Za-z0-9]", "");
+    }
+
     public static String unaccented(String src) {
         return Normalizer
                 .normalize(src, Normalizer.Form.NFD)

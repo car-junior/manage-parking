@@ -35,6 +35,13 @@ public class Vehicle {
     @Column(name = "type", nullable = false)
     private VehicleType type;
 
+    public Vehicle(long id, String model, String plate, VehicleType type) {
+        this.id = id;
+        this.model = model;
+        this.plate = plate;
+        this.type = type;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
