@@ -1,14 +1,14 @@
 package com.carjunior.manageparking.domain.dto.parkingcontrol;
 
-import com.carjunior.manageparking.domain.entity.enums.VehicleType;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ParkingDetailDto {
+public class ParkingDto {
     private String name;
     private String address;
 }

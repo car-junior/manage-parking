@@ -6,6 +6,6 @@ import lombok.Builder;
 import java.time.LocalDateTime;
 
 @Builder
-public record ParkingControlSearch(String query, LocalDateTime start, LocalDateTime end, VehicleType type) {
+public record ParkingControlSearch(String query, LocalDateTime startAt, LocalDateTime endAt, VehicleType type) {
 
 }

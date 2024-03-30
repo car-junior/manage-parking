@@ -15,7 +15,5 @@ public interface ParkingControlRepository extends JpaRepository<ParkingControl, 
     @Transactional
     @Modifying(clearAutomatically = true)
     @Query("UPDATE ParkingControl pc SET pc.exitDateTime = :exitDatetime, pc.status = :status WHERE pc.id = :id")
-    void finishEntrance(@Param("id") long id,
-                        @Param("status") ParkingControlStatus status,
-                        @Param("exitDatetime") LocalDateTime exitDatetime);
+    void finishEntrance(@Param("id") long id, @Param("status") ParkingControlStatus status, @Param("exitDatetime") LocalDateTime exitDatetime);
 }

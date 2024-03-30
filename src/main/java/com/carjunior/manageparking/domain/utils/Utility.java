@@ -16,6 +16,9 @@ public final class Utility {
     public static boolean isPresent(Object value) {
         return Optional.ofNullable(value).isPresent();
     }
+    public static boolean isEmpty(Object value) {
+        return Optional.ofNullable(value).isEmpty();
+    }
 
     public static String onlyNumbers(@NonNull String value) {
         return value.replace("\\d", "");
