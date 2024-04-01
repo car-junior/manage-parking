@@ -1,8 +1,9 @@
 package com.carjunior.manageparking.domain.controller;
 
-import com.carjunior.manageparking.domain.dto.parkingcontrol.entrance.EntranceDetailDto;
 import com.carjunior.manageparking.domain.dto.parkingcontrol.entrance.EntranceCreateDto;
+import com.carjunior.manageparking.domain.dto.parkingcontrol.entrance.EntranceDetailDto;
 import com.carjunior.manageparking.domain.dto.parkingcontrol.summary.SummaryDetailDto;
+import com.carjunior.manageparking.domain.repository.projections.parkingcontrol.SummaryPerHour;
 import com.carjunior.manageparking.domain.service.ModelMapperService;
 import com.carjunior.manageparking.domain.service.ParkingControlService;
 import com.carjunior.manageparking.domain.spec.search.ParkingControlSearch;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.springframework.format.annotation.DateTimeFormat.ISO.DATE_TIME;
 
@@ -38,7 +40,7 @@ public class ParkingControlController {
     }
 
     //    VAI PRECISAR DE PERMISSÃO E PERFIL
-    @GetMapping("{parkingId}/summary-entrances-exits")
+    @GetMapping("{parkingId}/summary")
     public ResponseEntity<SummaryDetailDto> getSummaryParkingControl(
             @PathVariable(name = "parkingId") Long parkingId,
             @RequestParam(name = "startAt", required = false) @DateTimeFormat(iso = DATE_TIME) LocalDateTime startAt,
@@ -49,4 +51,11 @@ public class ParkingControlController {
                 .build();
         return ResponseEntity.ok(parkingControlService.getSummaryParkingControl(parkingId, parkingControlSearch));
     }
+    @GetMapping("{parkingId}/summary-per-hour")
+    public ResponseEntity<List<SummaryPerHour>> getSummaryParkingControlPerHour(
+            @PathVariable(name = "parkingId") Long parkingId
+    ) {
+        return ResponseEntity.ok(parkingControlService.getSummaryParkingControlPerHour(parkingId));
+    }
+
 }

@@ -2,6 +2,7 @@ package com.carjunior.manageparking.domain.repository;
 
 import com.carjunior.manageparking.domain.entity.ParkingControl;
 import com.carjunior.manageparking.domain.entity.enums.ParkingControlStatus;
+import com.carjunior.manageparking.domain.repository.projections.parkingcontrol.SummaryPerHour;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
@@ -24,18 +25,20 @@ public interface ParkingControlRepository extends JpaRepository<ParkingControl, 
                                         'ENTRANCE'                            AS type
                                  FROM dbo.parking_control pc
                                  WHERE entry_datetime IS NOT NULL
+                                    AND pc.parking_id = :parkingId
                                  GROUP BY DATE_TRUNC('HOUR', pc.entry_datetime)),
                  pc_exit AS (SELECT DATE_TRUNC('HOUR', pc.exit_datetime) AS hour,
                                     COUNT(pc)                            AS quantity,
                                     'EXIT'                               AS type
                              FROM dbo.parking_control pc
                              WHERE exit_datetime IS NOT NULL
+                                AND pc.parking_id = :parkingId
                              GROUP BY DATE_TRUNC('HOUR', pc.exit_datetime))
                 (SELECT *
                  FROM pc_entrance
                  UNION ALL
                  SELECT *
-                 FROM pc_exit) ORDER BY hour;
+                 FROM pc_exit) ORDER BY hour
             """, nativeQuery = true)
-    List<Object> getSummaryParkingControlPerHour();
+    List<SummaryPerHour> getSummaryParkingControlPerHour(@Param("parkingId") long parkingId);
 }

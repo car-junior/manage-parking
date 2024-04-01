@@ -12,6 +12,7 @@ import com.carjunior.manageparking.domain.entity.enums.ParkingControlStatus;
 import com.carjunior.manageparking.domain.repository.ParkingControlRepository;
 import com.carjunior.manageparking.domain.repository.ParkingRepository;
 import com.carjunior.manageparking.domain.repository.VehicleRepository;
+import com.carjunior.manageparking.domain.repository.projections.parkingcontrol.SummaryPerHour;
 import com.carjunior.manageparking.domain.spec.search.ParkingControlSearch;
 import com.carjunior.manageparking.infrastructure.exception.CustomException;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static com.carjunior.manageparking.domain.spec.ParkingControlSpecification.getAllParkingControlEntrance;
 import static com.carjunior.manageparking.domain.spec.ParkingControlSpecification.getAllParkingControlExit;
@@ -120,5 +122,9 @@ public class ParkingControlService {
                 .quantity(parkingControlExits.size())
                 .parkingControls(modelMapperService.toList(ParkingControlDto.class, parkingControlExits))
                 .build();
+    }
+
+    public List<SummaryPerHour> getSummaryParkingControlPerHour(long parkingId) {
+        return parkingControlRepository.getSummaryParkingControlPerHour(parkingId);
     }
 }
