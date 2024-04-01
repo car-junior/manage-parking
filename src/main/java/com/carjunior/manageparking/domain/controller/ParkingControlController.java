@@ -37,6 +37,7 @@ public class ParkingControlController {
         return ResponseEntity.noContent().build();
     }
 
+    //    VAI PRECISAR DE PERMISSÃO E PERFIL
     @GetMapping("{parkingId}/summary-entrances-exits")
     public ResponseEntity<SummaryDetailDto> getSummaryParkingControl(
             @PathVariable(name = "parkingId") Long parkingId,
