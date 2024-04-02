@@ -3,8 +3,13 @@ package com.carjunior.manageparking.domain.service;
 import com.carjunior.manageparking.domain.entity.User;
 import com.carjunior.manageparking.domain.entity.enums.UserStatus;
 import com.carjunior.manageparking.domain.repository.UserRepository;
+import com.carjunior.manageparking.domain.spec.UserSpecification;
+import com.carjunior.manageparking.domain.spec.search.UserSearch;
 import com.carjunior.manageparking.infrastructure.exception.CustomException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -41,23 +46,14 @@ public class UserService {
                 );
     }
 
+    public Page<User> getAllUser(UserSearch vehicleSearch, Pageable pagination) {
+        return userRepository.findAll(UserSpecification.getAll(vehicleSearch), pagination);
+    }
+
     public void changeStatus(long userId, UserStatus status) {
         assertExistsUserById(userId);
         userRepository.changeStatus(userId, status);
     }
-
-//    public Vehicle getVehicleById(Long vehicleId) {
-
-//    }
-//
-//    public Vehicle updateVehicle(Vehicle vehicle) {
-//        validationUpdate(vehicle);
-//        return vehicleRepository.save(vehicle);
-//    }
-//
-//    public Page<Vehicle> getAllVehicle(VehicleSearch vehicleSearch, Pageable pagination) {
-//        return vehicleRepository.findAll(VehicleSpecification.getAll(vehicleSearch), pagination);
-//    }
 
     // privates methods
 
