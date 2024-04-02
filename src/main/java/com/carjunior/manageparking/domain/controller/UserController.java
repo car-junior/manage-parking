@@ -40,6 +40,12 @@ public class UserController {
         return ResponseEntity
                 .ok(modelMapperService.toObject(UserDetailDto.class, userService.getUserById(userId)));
     }
+
+    @PatchMapping("/{userId}")
+    public ResponseEntity<Void> changeStatus(@PathVariable(name = "userId") Long userId) {
+        userService.changeStatus(userId);
+        return ResponseEntity.noContent().build();
+    }
 //
 //    @GetMapping
 //    public ResponseEntity<PageResult<VehicleListDto>> getAll(

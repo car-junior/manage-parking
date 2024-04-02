@@ -64,6 +64,10 @@ public class UserService {
                     .build();
     }
 
+    public void changeStatus(long userId) {
+        userRepository.changeStatus(userId);
+    }
+
 //
 //    private void assertExistsVehicleById(long vehicleId) {
 //        if (!vehicleRepository.existsVehicleById(vehicleId))
