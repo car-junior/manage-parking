@@ -3,6 +3,7 @@ package com.carjunior.manageparking.domain.controller;
 import com.carjunior.manageparking.domain.dto.user.UserCreateDto;
 import com.carjunior.manageparking.domain.dto.user.UserDetailDto;
 import com.carjunior.manageparking.domain.entity.User;
+import com.carjunior.manageparking.domain.entity.enums.UserStatus;
 import com.carjunior.manageparking.domain.service.ModelMapperService;
 import com.carjunior.manageparking.domain.service.UserService;
 import jakarta.validation.Valid;
@@ -23,7 +24,7 @@ public class UserController {
         return ResponseEntity.ok(modelMapperService.toObject(UserDetailDto.class, user));
     }
 
-//    @PutMapping("/{vehicleId}")
+    //    @PutMapping("/{vehicleId}")
 //    public ResponseEntity<VehicleDetailDto> update(
 //            @PathVariable(name = "vehicleId") Long vehicleId,
 //            @Valid @RequestBody VehicleCreateUpdateDto vehicleUpdateDto) {
@@ -42,8 +43,10 @@ public class UserController {
     }
 
     @PatchMapping("/{userId}")
-    public ResponseEntity<Void> changeStatus(@PathVariable(name = "userId") Long userId) {
-        userService.changeStatus(userId);
+    public ResponseEntity<Void> changeStatus(@PathVariable(name = "userId") Long userId,
+                                             @RequestParam(name = "status") UserStatus status
+    ) {
+        userService.changeStatus(userId, status);
         return ResponseEntity.noContent().build();
     }
 //

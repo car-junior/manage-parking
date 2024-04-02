@@ -1,6 +1,7 @@
 package com.carjunior.manageparking.domain.service;
 
 import com.carjunior.manageparking.domain.entity.User;
+import com.carjunior.manageparking.domain.entity.enums.UserStatus;
 import com.carjunior.manageparking.domain.repository.UserRepository;
 import com.carjunior.manageparking.infrastructure.exception.CustomException;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,11 @@ public class UserService {
                         .message(String.format("Cannot found user with id %d.", userId))
                         .build()
                 );
+    }
+
+    public void changeStatus(long userId, UserStatus status) {
+        assertExistsUserById(userId);
+        userRepository.changeStatus(userId, status);
     }
 
 //    public Vehicle getVehicleById(Long vehicleId) {
@@ -64,17 +70,12 @@ public class UserService {
                     .build();
     }
 
-    public void changeStatus(long userId) {
-        userRepository.changeStatus(userId);
+    private void assertExistsUserById(long userId) {
+        if (!userRepository.existsUserById(userId))
+            throw CustomException.builder()
+                    .httpStatus(HttpStatus.NOT_FOUND)
+                    .message(String.format("Cannot found user with id %d.", userId))
+                    .build();
     }
-
-//
-//    private void assertExistsVehicleById(long vehicleId) {
-//        if (!vehicleRepository.existsVehicleById(vehicleId))
-//            throw CustomException.builder()
-//                    .httpStatus(HttpStatus.NOT_FOUND)
-//                    .message(String.format("Cannot found vehicle with id %d.", vehicleId))
-//                    .build();
-//    }
 
 }
