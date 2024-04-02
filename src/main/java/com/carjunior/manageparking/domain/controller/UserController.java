@@ -8,10 +8,7 @@ import com.carjunior.manageparking.domain.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -38,11 +35,11 @@ public class UserController {
 //        return ResponseEntity.ok(modelMapperService.toObject(VehicleDetailDto.class, vehicle));
 //    }
 //
-//    @GetMapping("/{vehicleId}")
-//    public ResponseEntity<VehicleDetailDto> getById(@PathVariable(name = "vehicleId") Long vehicleId) {
-//        return ResponseEntity
-//                .ok(modelMapperService.toObject(VehicleDetailDto.class, vehicleService.getVehicleById(vehicleId)));
-//    }
+    @GetMapping("/{userId}")
+    public ResponseEntity<UserDetailDto> getById(@PathVariable(name = "userId") Long userId) {
+        return ResponseEntity
+                .ok(modelMapperService.toObject(UserDetailDto.class, userService.getUserById(userId)));
+    }
 //
 //    @GetMapping
 //    public ResponseEntity<PageResult<VehicleListDto>> getAll(

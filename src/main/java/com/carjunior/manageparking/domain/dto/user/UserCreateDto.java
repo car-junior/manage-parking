@@ -9,7 +9,7 @@ public record UserCreateDto(
         @NotNull @NotEmpty String name,
         @NotNull @NotEmpty String surname,
         @NotNull @NotEmpty @Email String email,
-        @NotNull @NotEmpty @Size(min = 8) String password
+        @NotNull @NotEmpty @Size(min = 8, max = 50) String password
 ) {
     @Override
     public String name() {

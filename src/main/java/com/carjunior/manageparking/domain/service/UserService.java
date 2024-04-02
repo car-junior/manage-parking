@@ -22,13 +22,17 @@ public class UserService {
         );
     }
 
+    public User getUserById(long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> CustomException.builder()
+                        .httpStatus(HttpStatus.NOT_FOUND)
+                        .message(String.format("Cannot found user with id %d.", userId))
+                        .build()
+                );
+    }
+
 //    public Vehicle getVehicleById(Long vehicleId) {
-//        return vehicleRepository.findById(vehicleId)
-//                .orElseThrow(() -> CustomException.builder()
-//                        .httpStatus(HttpStatus.NOT_FOUND)
-//                        .message(String.format("Cannot found vehicle with id %d.", vehicleId))
-//                        .build()
-//                );
+
 //    }
 //
 //    public Vehicle updateVehicle(Vehicle vehicle) {
@@ -47,7 +51,7 @@ public class UserService {
 //        assertNotExistsVehicleByPlate(vehicle.getPlate(), vehicle.getId());
     }
 
-//    private void validationUpdate(Vehicle vehicle) {
+    //    private void validationUpdate(Vehicle vehicle) {
 //        assertExistsVehicleById(vehicle.getId());
 //        assertNotExistsVehicleByPlate(vehicle.getPlate(), vehicle.getId());
 //    }
@@ -59,6 +63,7 @@ public class UserService {
                     .message(String.format("Already user with this email: %s", email))
                     .build();
     }
+
 //
 //    private void assertExistsVehicleById(long vehicleId) {
 //        if (!vehicleRepository.existsVehicleById(vehicleId))
