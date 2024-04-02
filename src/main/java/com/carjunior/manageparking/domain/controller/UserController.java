@@ -1,6 +1,6 @@
 package com.carjunior.manageparking.domain.controller;
 
-import com.carjunior.manageparking.domain.dto.user.UserCreateDto;
+import com.carjunior.manageparking.domain.dto.user.UserCreateUpdateDto;
 import com.carjunior.manageparking.domain.dto.user.UserDetailDto;
 import com.carjunior.manageparking.domain.entity.User;
 import com.carjunior.manageparking.domain.entity.enums.UserStatus;
@@ -19,33 +19,31 @@ public class UserController {
     private final ModelMapperService modelMapperService;
 
     @PostMapping
-    public ResponseEntity<Object> create(@Valid @RequestBody UserCreateDto userCreate) {
+    public ResponseEntity<UserDetailDto> create(@Valid @RequestBody UserCreateUpdateDto userCreate) {
         var user = userService.saveUser(modelMapperService.toObject(User.class, userCreate));
         return ResponseEntity.ok(modelMapperService.toObject(UserDetailDto.class, user));
     }
 
-    //    @PutMapping("/{vehicleId}")
-//    public ResponseEntity<VehicleDetailDto> update(
-//            @PathVariable(name = "vehicleId") Long vehicleId,
-//            @Valid @RequestBody VehicleCreateUpdateDto vehicleUpdateDto) {
-//        var vehicle = modelMapperService.toObject(Vehicle.class, vehicleUpdateDto)
-//                .toBuilder()
-//                .id(vehicleId)
-//                .build();
-//        vehicle = vehicleService.updateVehicle(vehicle);
-//        return ResponseEntity.ok(modelMapperService.toObject(VehicleDetailDto.class, vehicle));
-//    }
-//
+    @PutMapping("/{userId}")
+    public ResponseEntity<UserDetailDto> update(@PathVariable(name = "userId") Long userId,
+                                                @Valid @RequestBody UserCreateUpdateDto userUpdate) {
+        var user = modelMapperService.toObject(User.class, userUpdate)
+                .toBuilder()
+                .id(userId)
+                .build();
+        return ResponseEntity
+                .ok(modelMapperService.toObject(UserDetailDto.class, userService.updateUser(user)));
+    }
+
     @GetMapping("/{userId}")
     public ResponseEntity<UserDetailDto> getById(@PathVariable(name = "userId") Long userId) {
         return ResponseEntity
                 .ok(modelMapperService.toObject(UserDetailDto.class, userService.getUserById(userId)));
     }
 
-    @PatchMapping("/{userId}")
+    @PatchMapping("/{userId}/change-status")
     public ResponseEntity<Void> changeStatus(@PathVariable(name = "userId") Long userId,
-                                             @RequestParam(name = "status") UserStatus status
-    ) {
+                                             @RequestParam(name = "status") UserStatus status) {
         userService.changeStatus(userId, status);
         return ResponseEntity.noContent().build();
     }

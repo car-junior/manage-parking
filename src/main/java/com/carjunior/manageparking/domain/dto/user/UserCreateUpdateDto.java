@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-public record UserCreateDto(
+public record UserCreateUpdateDto(
         @NotNull @NotEmpty String name,
         @NotNull @NotEmpty String surname,
         @NotNull @NotEmpty @Email String email,

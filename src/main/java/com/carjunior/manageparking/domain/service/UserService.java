@@ -23,6 +23,15 @@ public class UserService {
         );
     }
 
+
+    public User updateUser(User user) {
+        validationUpdate(user);
+        return userRepository.save(user.toBuilder()
+                .password(passwordEncoder.encode(user.getPassword()))
+                .build()
+        );
+    }
+
     public User getUserById(long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> CustomException.builder()
@@ -53,15 +62,15 @@ public class UserService {
     // privates methods
 
 
-    private void validationCreate(User vehicle) {
-//        assertNotExistsVehicleByPlate(vehicle.getPlate(), vehicle.getId());
+    private void validationCreate(User user) {
+        assertNotExistsUserByEmail(user.getName(), user.getId());
     }
 
-    //    private void validationUpdate(Vehicle vehicle) {
-//        assertExistsVehicleById(vehicle.getId());
-//        assertNotExistsVehicleByPlate(vehicle.getPlate(), vehicle.getId());
-//    }
-//
+    private void validationUpdate(User user) {
+        assertExistsUserById(user.getId());
+        assertNotExistsUserByEmail(user.getEmail(), user.getId());
+    }
+
     private void assertNotExistsUserByEmail(String email, long id) {
         if (userRepository.existsVehicleByEmailAndIdNot(email, id))
             throw CustomException.builder()
