@@ -44,13 +44,23 @@ public class Parking {
     @Column(name = "occupied_spaces_cars")
     private Integer occupiedSpacesCars;
 
-    @OneToMany(mappedBy = "parking")
+    @OneToMany(mappedBy = "parking", fetch = FetchType.LAZY)
     @Builder.Default
     private List<ParkingControl> parkingControls = new ArrayList<>();
 
-    @OneToMany(mappedBy = "parking")
+    @OneToMany(mappedBy = "parking", fetch = FetchType.LAZY)
     @Builder.Default
     private List<Role> roles = new ArrayList<>();
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            schema = "dbo",
+            name = "parking_employees",
+            joinColumns = @JoinColumn(name = "parking_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    @Builder.Default
+    private List<User> employees = new ArrayList<>();
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
