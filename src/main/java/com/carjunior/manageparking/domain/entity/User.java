@@ -4,6 +4,8 @@ import com.carjunior.manageparking.domain.entity.enums.UserStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -34,6 +36,16 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private UserStatus status = UserStatus.ACTIVE;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            schema = "dbo",
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    @Builder.Default
+    private List<Role> roles = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {
