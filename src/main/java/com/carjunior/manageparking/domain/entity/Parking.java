@@ -46,8 +46,11 @@ public class Parking {
 
     @OneToMany(mappedBy = "parking")
     @Builder.Default
-    List<ParkingControl> parkingControls = new ArrayList<>();
+    private List<ParkingControl> parkingControls = new ArrayList<>();
 
+    @OneToMany(mappedBy = "parking")
+    @Builder.Default
+    private List<Role> roles = new ArrayList<>();
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

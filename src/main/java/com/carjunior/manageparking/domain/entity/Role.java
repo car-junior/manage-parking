@@ -1,5 +1,6 @@
 package com.carjunior.manageparking.domain.entity;
 
+import com.carjunior.manageparking.domain.entity.enums.RoleType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,8 +22,13 @@ public class Role {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "surname", nullable = false)
-    private Object type;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type", nullable = false)
+    private RoleType type;
+
+    @ManyToOne
+    @JoinColumn(name = "parking_id", nullable = false)
+    private Parking parking;
 
     @Override
     public boolean equals(Object o) {
