@@ -2,12 +2,8 @@ package com.carjunior.manageparking.domain.service;
 
 import com.carjunior.manageparking.domain.entity.Parking;
 import com.carjunior.manageparking.domain.repository.ParkingRepository;
-import com.carjunior.manageparking.domain.spec.ParkingSpecification;
-import com.carjunior.manageparking.domain.spec.search.ParkingSearch;
 import com.carjunior.manageparking.infrastructure.exception.CustomException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -33,10 +29,6 @@ public class ParkingService {
     public Parking updateParking(Parking parking) {
         validationUpdate(parking);
         return parkingRepository.save(parking);
-    }
-
-    public Page<Parking> getAllParking(ParkingSearch parkingSearch, Pageable pagination) {
-        return parkingRepository.findAll(ParkingSpecification.getAll(parkingSearch), pagination);
     }
 
     // privates methods
