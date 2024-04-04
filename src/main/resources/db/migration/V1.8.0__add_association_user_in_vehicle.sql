@@ -1,0 +1,2 @@
+ALTER TABLE dbo.vehicle
+    ADD COLUMN IF NOT EXISTS user_id INT8 NOT NULL REFERENCES dbo.user;

@@ -27,7 +27,7 @@ public class RoleController {
         return ResponseEntity.ok(modelMapperService.toObject(RoleDetailDto.class, role));
     }
 
-        @PutMapping("/{roleId}")
+    @PutMapping("/{roleId}")
     public ResponseEntity<RoleDetailDto> update(@PathVariable(name = "roleId") long roleId,
                                                 @Valid @RequestBody RoleCreateUpdateDto roleUpdate) {
         var role = modelMapperService.toObject(Role.class, roleUpdate)
@@ -46,7 +46,6 @@ public class RoleController {
                 .ok(modelMapperService.toObject(RoleDetailDto.class, roleService.getRoleById(roleId)));
     }
 
-    // Adicionar depois o ID do estacionamento como TENNET
     @GetMapping
     public ResponseEntity<PageResult<RoleDetailDto>> getAll(
             @RequestParam(name = "q", required = false) String query,

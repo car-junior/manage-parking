@@ -48,7 +48,6 @@ public class RoleService {
         assertNotExistsRoleByName(role.getName(), role.getId());
     }
 
-
     private void validationUpdate(Role role) {
         validation(role);
         assertExistsRoleById(role.getId());
