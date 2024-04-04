@@ -34,7 +34,7 @@ public class ParkingControlController {
 
     @PatchMapping("/{parkingControlId}")
     public ResponseEntity<Void> finishEntrance(
-            @PathVariable(name = "parkingControlId") Long parkingControlId) {
+            @PathVariable(name = "parkingControlId") long parkingControlId) {
         parkingControlService.finishEntrance(parkingControlId);
         return ResponseEntity.noContent().build();
     }
@@ -42,7 +42,7 @@ public class ParkingControlController {
     //    VAI PRECISAR DE PERMISSÃO E PERFIL
     @GetMapping("{parkingId}/summary")
     public ResponseEntity<SummaryDetailDto> getSummaryParkingControl(
-            @PathVariable(name = "parkingId") Long parkingId,
+            @PathVariable(name = "parkingId") long parkingId,
             @RequestParam(name = "startAt", required = false) @DateTimeFormat(iso = DATE_TIME) LocalDateTime startAt,
             @RequestParam(name = "endAt", required = false) @DateTimeFormat(iso = DATE_TIME) LocalDateTime endAt) {
         var parkingControlSearch = ParkingControlSearch.builder()
@@ -53,7 +53,7 @@ public class ParkingControlController {
     }
     @GetMapping("{parkingId}/summary-per-hour")
     public ResponseEntity<List<SummaryPerHour>> getSummaryParkingControlPerHour(
-            @PathVariable(name = "parkingId") Long parkingId
+            @PathVariable(name = "parkingId") long parkingId
     ) {
         return ResponseEntity.ok(parkingControlService.getSummaryParkingControlPerHour(parkingId));
     }

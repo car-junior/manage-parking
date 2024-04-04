@@ -15,18 +15,14 @@ public class RoleService {
 
     private final ParkingRepository parkingRepository;
     public Role saveRole(Role role) {
-        validationCreate(role);
+        validation(role);
         return roleRepository.save(role);
     }
 
-
-//    public User updateUser(User user) {
-//        validationUpdate(user);
-//        return userRepository.save(user.toBuilder()
-//                .password(passwordEncoder.encode(user.getPassword()))
-//                .build()
-//        );
-//    }
+    public Role updateRole(Role role) {
+        validationUpdate(role);
+        return roleRepository.save(role);
+    }
 
     public Role getRoleById(long roleId) {
         return roleRepository.findById(roleId)
@@ -43,16 +39,16 @@ public class RoleService {
 
     // privates methods
 
-    private void validationCreate(Role role) {
+    private void validation(Role role) {
         assertExistsParkingById(role.getParking().getId());
         assertNotExistsRoleByName(role.getName(), role.getId());
     }
 
-//
-//    private void validationUpdate(User user) {
-//        assertExistsUserById(user.getId());
-//        assertNotExistsUserByEmail(user.getEmail(), user.getId());
-//    }
+
+    private void validationUpdate(Role role) {
+        validation(role);
+        assertExistsRoleById(role.getId());
+    }
 
     private void assertNotExistsRoleByName(String name, long id) {
         if (roleRepository.existsRoleByNameAndIdNot(name, id))
@@ -70,12 +66,12 @@ public class RoleService {
                     .build();
     }
 
-//    private void assertExistsUserById(long userId) {
-//        if (!userRepository.existsUserById(userId))
-//            throw CustomException.builder()
-//                    .httpStatus(HttpStatus.NOT_FOUND)
-//                    .message(String.format("Cannot found user with id %d.", userId))
-//                    .build();
-//    }
+    private void assertExistsRoleById(long roleId) {
+        if (!roleRepository.existsRoleById(roleId))
+            throw CustomException.builder()
+                    .httpStatus(HttpStatus.NOT_FOUND)
+                    .message(String.format("Cannot found role with id %d.", roleId))
+                    .build();
+    }
 
 }

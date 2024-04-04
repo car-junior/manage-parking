@@ -31,7 +31,7 @@ public class VehicleController {
 
     @PutMapping("/{vehicleId}")
     public ResponseEntity<VehicleDetailDto> update(
-            @PathVariable(name = "vehicleId") Long vehicleId,
+            @PathVariable(name = "vehicleId") long vehicleId,
             @Valid @RequestBody VehicleCreateUpdateDto vehicleUpdateDto) {
         var vehicle = modelMapperService.toObject(Vehicle.class, vehicleUpdateDto)
                 .toBuilder()
@@ -42,7 +42,7 @@ public class VehicleController {
     }
 
     @GetMapping("/{vehicleId}")
-    public ResponseEntity<VehicleDetailDto> getById(@PathVariable(name = "vehicleId") Long vehicleId) {
+    public ResponseEntity<VehicleDetailDto> getById(@PathVariable(name = "vehicleId") long vehicleId) {
         return ResponseEntity
                 .ok(modelMapperService.toObject(VehicleDetailDto.class, vehicleService.getVehicleById(vehicleId)));
     }

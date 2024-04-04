@@ -29,7 +29,7 @@ public class UserController {
     }
 
     @PutMapping("/{userId}")
-    public ResponseEntity<UserDetailDto> update(@PathVariable(name = "userId") Long userId,
+    public ResponseEntity<UserDetailDto> update(@PathVariable(name = "userId") long userId,
                                                 @Valid @RequestBody UserCreateUpdateDto userUpdate) {
         var user = modelMapperService.toObject(User.class, userUpdate)
                 .toBuilder()
@@ -40,13 +40,13 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<UserDetailDto> getById(@PathVariable(name = "userId") Long userId) {
+    public ResponseEntity<UserDetailDto> getById(@PathVariable(name = "userId") long userId) {
         return ResponseEntity
                 .ok(modelMapperService.toObject(UserDetailDto.class, userService.getUserById(userId)));
     }
 
     @PatchMapping("/{userId}/change-status")
-    public ResponseEntity<Void> changeStatus(@PathVariable(name = "userId") Long userId,
+    public ResponseEntity<Void> changeStatus(@PathVariable(name = "userId") long userId,
                                              @RequestParam(name = "status") UserStatus status) {
         userService.changeStatus(userId, status);
         return ResponseEntity.noContent().build();

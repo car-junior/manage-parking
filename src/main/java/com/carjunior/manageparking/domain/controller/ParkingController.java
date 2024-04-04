@@ -25,7 +25,7 @@ public class ParkingController {
 
     @PutMapping("/{parkingId}")
     public ResponseEntity<ParkingDetailDto> update(
-            @PathVariable(name = "parkingId") Long parkingId,
+            @PathVariable(name = "parkingId") long parkingId,
             @Valid @RequestBody ParkingCreateUpdateDto parkingUpdateDto) {
         var parking = modelMapperService.toObject(Parking.class, parkingUpdateDto)
                 .toBuilder()
@@ -36,7 +36,7 @@ public class ParkingController {
     }
 
     @GetMapping("/{parkingId}")
-    public ResponseEntity<ParkingDetailDto> getById(@PathVariable(name = "parkingId") Long parkingId) {
+    public ResponseEntity<ParkingDetailDto> getById(@PathVariable(name = "parkingId") long parkingId) {
         return ResponseEntity
                 .ok(modelMapperService.toObject(ParkingDetailDto.class, parkingService.getParkingById(parkingId)));
     }
