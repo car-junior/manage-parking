@@ -3,8 +3,12 @@ package com.carjunior.manageparking.domain.service;
 import com.carjunior.manageparking.domain.entity.Role;
 import com.carjunior.manageparking.domain.repository.ParkingRepository;
 import com.carjunior.manageparking.domain.repository.RoleRepository;
+import com.carjunior.manageparking.domain.spec.RoleSpecification;
+import com.carjunior.manageparking.domain.spec.search.RoleSearch;
 import com.carjunior.manageparking.infrastructure.exception.CustomException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -33,9 +37,9 @@ public class RoleService {
                 );
     }
 
-//    public Page<User> getAllUser(UserSearch vehicleSearch, Pageable pagination) {
-//        return userRepository.findAll(UserSpecification.getAll(vehicleSearch), pagination);
-//    }
+    public Page<Role> getAllRole(RoleSearch roleSearch, Pageable pagination) {
+        return roleRepository.findAll(RoleSpecification.getAll(roleSearch), pagination);
+    }
 
     // privates methods
 

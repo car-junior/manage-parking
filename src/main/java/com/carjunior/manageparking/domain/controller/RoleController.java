@@ -1,14 +1,18 @@
 package com.carjunior.manageparking.domain.controller;
 
+import com.carjunior.manageparking.domain.dto.PageResult;
 import com.carjunior.manageparking.domain.dto.role.RoleDetailDto;
 import com.carjunior.manageparking.domain.dto.role.createupdate.RoleCreateUpdateDto;
 import com.carjunior.manageparking.domain.entity.Role;
 import com.carjunior.manageparking.domain.service.ModelMapperService;
 import com.carjunior.manageparking.domain.service.RoleService;
+import com.carjunior.manageparking.domain.spec.search.RoleSearch;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import static com.carjunior.manageparking.domain.utils.Utility.createPagination;
 
 @RestController
 @RequiredArgsConstructor
@@ -42,29 +46,20 @@ public class RoleController {
                 .ok(modelMapperService.toObject(RoleDetailDto.class, roleService.getRoleById(roleId)));
     }
 
-//
-//    @PatchMapping("/{userId}/change-status")
-//    public ResponseEntity<Void> changeStatus(@PathVariable(name = "userId") Long userId,
-//                                             @RequestParam(name = "status") UserStatus status) {
-//        userService.changeStatus(userId, status);
-//        return ResponseEntity.noContent().build();
-//    }
-//
-//    // Adicionar depois o ID do estacionamento como TENNET
-//    @GetMapping
-//    public ResponseEntity<PageResult<UserDetailDto>> getAll(
-//            @RequestParam(name = "q", required = false) String query,
-//            @RequestParam(required = false, defaultValue = "0") int page,
-//            @RequestParam(required = false, defaultValue = "10") int itemsPerPage,
-//            @RequestParam(required = false, defaultValue = "ASC") String sort,
-//            @RequestParam(required = false, defaultValue = "id") String sortName) {
-//        var userSearch = UserSearch.builder()
-//                .query(query)
-//                .build();
-//        var pagination = createPagination(page, itemsPerPage, sort, sortName);
-//        var result = userService.getAllUser(userSearch, pagination);
-//        return ResponseEntity.ok(modelMapperService.toPage(UserDetailDto.class, result));
-//    }
-
+    // Adicionar depois o ID do estacionamento como TENNET
+    @GetMapping
+    public ResponseEntity<PageResult<RoleDetailDto>> getAll(
+            @RequestParam(name = "q", required = false) String query,
+            @RequestParam(required = false, defaultValue = "0") int page,
+            @RequestParam(required = false, defaultValue = "10") int itemsPerPage,
+            @RequestParam(required = false, defaultValue = "ASC") String sort,
+            @RequestParam(required = false, defaultValue = "id") String sortName) {
+        var roleSearch = RoleSearch.builder()
+                .query(query)
+                .build();
+        var pagination = createPagination(page, itemsPerPage, sort, sortName);
+        var result = roleService.getAllRole(roleSearch, pagination);
+        return ResponseEntity.ok(modelMapperService.toPage(RoleDetailDto.class, result));
+    }
 
 }
