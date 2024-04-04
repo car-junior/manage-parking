@@ -23,6 +23,14 @@ public class RoleController {
         return ResponseEntity.ok(modelMapperService.toObject(RoleDetailDto.class, role));
     }
 
+    //TODO: No token terá id do estacionamento com isso toda operação que for feita para o mesmo
+    // pegarei o id presente no token e buscarei no banco de dados
+    @GetMapping("/{roleId}")
+    public ResponseEntity<RoleDetailDto> getById(@PathVariable(name = "roleId") long roleId) {
+        return ResponseEntity
+                .ok(modelMapperService.toObject(RoleDetailDto.class, roleService.getRoleById(roleId)));
+    }
+
 //    @PutMapping("/{userId}")
 //    public ResponseEntity<UserDetailDto> update(@PathVariable(name = "userId") Long userId,
 //                                                @Valid @RequestBody UserCreateUpdateDto userUpdate) {
@@ -34,11 +42,7 @@ public class RoleController {
 //                .ok(modelMapperService.toObject(UserDetailDto.class, userService.updateUser(user)));
 //    }
 //
-//    @GetMapping("/{userId}")
-//    public ResponseEntity<UserDetailDto> getById(@PathVariable(name = "userId") Long userId) {
-//        return ResponseEntity
-//                .ok(modelMapperService.toObject(UserDetailDto.class, userService.getUserById(userId)));
-//    }
+
 //
 //    @PatchMapping("/{userId}/change-status")
 //    public ResponseEntity<Void> changeStatus(@PathVariable(name = "userId") Long userId,
