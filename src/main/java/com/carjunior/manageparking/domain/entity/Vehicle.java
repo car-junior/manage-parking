@@ -35,6 +35,10 @@ public class Vehicle {
     @Column(name = "type", nullable = false)
     private VehicleType type;
 
+    @ManyToOne
+    @JoinColumn(name = "owner_id", nullable = false)
+    private User owner;
+
     public Vehicle(long id, String model, String plate, VehicleType type) {
         this.id = id;
         this.model = model;

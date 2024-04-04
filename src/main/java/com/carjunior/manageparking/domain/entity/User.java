@@ -47,6 +47,10 @@ public class User {
     @Builder.Default
     private List<Role> roles = new ArrayList<>();
 
+    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER)
+    @Builder.Default
+    private List<Vehicle> vehicles = new ArrayList<>();
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
