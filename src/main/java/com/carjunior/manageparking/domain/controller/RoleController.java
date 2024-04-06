@@ -40,6 +40,8 @@ public class RoleController {
 
     //TODO: No token terá id do estacionamento com isso toda operação que for feita para o mesmo
     // pegarei o id presente no token e buscarei no banco de dados
+
+    //TODO: Ajustar Dtos para contemplar roles, usuários e etc...
     @GetMapping("/{roleId}")
     public ResponseEntity<RoleDetailDto> getById(@PathVariable(name = "roleId") long roleId) {
         return ResponseEntity
