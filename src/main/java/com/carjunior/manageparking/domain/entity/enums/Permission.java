@@ -12,11 +12,6 @@ public enum Permission {
     VEHICLE_LIST,
     VEHICLE_DETAIL,
 
-    ROLE_CREATE,
-    ROLE_UPDATE,
-    ROLE_LIST,
-    ROLE_DETAIL,
-
     USER_CREATE,
     USER_UPDATE,
     USER_LIST,
