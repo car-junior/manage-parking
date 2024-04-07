@@ -1,5 +1,6 @@
 package com.carjunior.manageparking.domain.entity;
 
+import com.carjunior.manageparking.domain.entity.enums.Permission;
 import com.carjunior.manageparking.domain.entity.enums.RoleType;
 import com.carjunior.manageparking.domain.entity.enums.UserStatus;
 import jakarta.persistence.*;
@@ -48,6 +49,13 @@ public class User {
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
     private List<RoleType> roles = new ArrayList<>();
+
+    @Builder.Default
+    @ElementCollection
+    @Column(name = "permission")
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "user_permissions", joinColumns = @JoinColumn(name = "user_id"))
+    private List<Permission> permissions = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {
