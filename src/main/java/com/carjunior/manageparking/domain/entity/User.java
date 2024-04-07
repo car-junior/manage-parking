@@ -45,14 +45,14 @@ public class User {
     @ElementCollection
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
+    @CollectionTable(name = "user_roles", schema = "dbo", joinColumns = @JoinColumn(name = "user_id"))
     private Set<RoleType> roles = new HashSet<>();
 
     @Builder.Default
     @ElementCollection
     @Column(name = "permission")
     @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "user_permissions", joinColumns = @JoinColumn(name = "user_id"))
+    @CollectionTable(name = "user_permissions", schema = "dbo", joinColumns = @JoinColumn(name = "user_id"))
     private Set<Permission> permissions = new HashSet<>();
 
     @Override
