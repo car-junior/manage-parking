@@ -48,10 +48,6 @@ public class Parking {
     @Builder.Default
     private List<ParkingControl> parkingControls = new ArrayList<>();
 
-    @OneToMany(mappedBy = "parking", fetch = FetchType.LAZY)
-    @Builder.Default
-    private List<Role> roles = new ArrayList<>();
-
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             schema = "dbo",
