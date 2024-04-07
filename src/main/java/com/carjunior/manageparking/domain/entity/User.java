@@ -6,9 +6,7 @@ import com.carjunior.manageparking.domain.entity.enums.UserStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Getter
@@ -48,14 +46,14 @@ public class User {
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
-    private List<RoleType> roles = new ArrayList<>();
+    private Set<RoleType> roles = new HashSet<>();
 
     @Builder.Default
     @ElementCollection
     @Column(name = "permission")
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_permissions", joinColumns = @JoinColumn(name = "user_id"))
-    private List<Permission> permissions = new ArrayList<>();
+    private Set<Permission> permissions = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {
