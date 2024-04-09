@@ -52,7 +52,6 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    // Adicionar depois o ID do estacionamento como TENNET
     @GetMapping
     public ResponseEntity<PageResult<UserDetailDto>> getAll(
             @RequestParam(name = "q", required = false) String query,
