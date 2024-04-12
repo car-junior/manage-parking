@@ -30,6 +30,12 @@ public class JwtService {
         return createToken(claims, username);
     }
 
+    public Date extractExpiration(String token) {
+        return extractClaim(token, Claims::getExpiration);
+    }
+    private Boolean isTokenExpired(String token) {
+        return extractExpiration(token).before(new Date());
+    }
 
     private Claims extractAllClaims(String token) {
         return Jwts
