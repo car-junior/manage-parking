@@ -18,4 +18,6 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
     void changeStatus(@Param("id") long id, @Param("status") UserStatus status);
 
     boolean existsUserById(long userId);
+
+    User findUserByEmail(String email);
 }
