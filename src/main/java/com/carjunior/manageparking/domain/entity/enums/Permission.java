@@ -1,6 +1,8 @@
 package com.carjunior.manageparking.domain.entity.enums;
 
-public enum Permission {
+import org.springframework.security.core.GrantedAuthority;
+
+public enum Permission implements GrantedAuthority {
 
     PARKING_CREATE,
     PARKING_UPDATE,
@@ -22,4 +24,8 @@ public enum Permission {
     PARKING_CONTROL_SUMMARY,
     PARKING_CONTROL_SUMMARY_PER_HOUR;
 
+    @Override
+    public String getAuthority() {
+        return this.toString();
+    }
 }
