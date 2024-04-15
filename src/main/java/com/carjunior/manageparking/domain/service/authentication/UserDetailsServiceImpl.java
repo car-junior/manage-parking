@@ -18,9 +18,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         //logger.debug("Entering in loadUserByUsername Method...");
+
         userRepository.findUserByEmail(email)
                 .ifPresentOrElse(user -> {
-                    return null ;
+
                         },
                         () -> {
                             throw CustomException.builder()
@@ -28,5 +29,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                                     .message("Cannot found user with email " + email)
                                     .build();
                         });
+
+        return null;
     }
 }
