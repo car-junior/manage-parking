@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificationExecutor<User> {
     boolean existsVehicleByEmailAndIdNot(String email, long id);
 
@@ -19,5 +21,5 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
 
     boolean existsUserById(long userId);
 
-    User findUserByEmail(String email);
+    Optional<User> findUserByEmail(String email);
 }
