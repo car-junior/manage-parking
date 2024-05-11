@@ -19,17 +19,18 @@ import java.util.function.Function;
 @RequiredArgsConstructor
 public class JwtService {
 
-    private final String MOMENT_SECRET = "1236456ASDZXC";
+    private final String MOMENT_SECRET = "fTiMhmbv3mTmgtcG7o1TjOwGbgfqxN7lphux2pFwBkU=";
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
 
-    public String GenerateToken(String username){
+    public String generateToken(String username) {
         Map<String, Object> claims = new HashMap<>();
         return createToken(claims, username);
     }
+
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
@@ -61,7 +62,7 @@ public class JwtService {
                 .setClaims(claims)
                 .setSubject(username)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis()+ 1000 * 60))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60))
                 .signWith(getSignKey(), SignatureAlgorithm.HS256).compact();
     }
 
