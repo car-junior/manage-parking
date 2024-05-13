@@ -43,6 +43,7 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
+    @PreAuthorize("hasAnyAuthority('USER_DETAIL')")
     public ResponseEntity<UserDetailDto> getById(@PathVariable(name = "userId") long userId) {
         return ResponseEntity
                 .ok(modelMapperService.toObject(UserDetailDto.class, userService.getUserById(userId)));
