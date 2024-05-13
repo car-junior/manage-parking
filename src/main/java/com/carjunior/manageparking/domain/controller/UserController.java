@@ -31,6 +31,7 @@ public class UserController {
     }
 
     @PutMapping("/{userId}")
+    @PreAuthorize("hasAnyAuthority('USER_UPDATE')")
     public ResponseEntity<UserDetailDto> update(@PathVariable(name = "userId") long userId,
                                                 @Valid @RequestBody UserCreateUpdateDto userUpdate) {
         var user = modelMapperService.toObject(User.class, userUpdate)
