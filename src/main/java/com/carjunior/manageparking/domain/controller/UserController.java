@@ -11,6 +11,7 @@ import com.carjunior.manageparking.domain.spec.search.UserSearch;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import static com.carjunior.manageparking.domain.utils.Utility.createPagination;
@@ -23,6 +24,7 @@ public class UserController {
     private final ModelMapperService modelMapperService;
 
     @PostMapping
+    @PreAuthorize("hasAnyAuthority('USER_CREATE')")
     public ResponseEntity<UserDetailDto> create(@Valid @RequestBody UserCreateUpdateDto userCreate) {
         var user = userService.saveUser(modelMapperService.toObject(User.class, userCreate));
         return ResponseEntity.ok(modelMapperService.toObject(UserDetailDto.class, user));
