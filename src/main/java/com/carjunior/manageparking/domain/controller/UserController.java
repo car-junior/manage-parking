@@ -57,6 +57,7 @@ public class UserController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyAuthority('USER_LIST')")
     public ResponseEntity<PageResult<UserDetailDto>> getAll(
             @RequestParam(name = "q", required = false) String query,
             @RequestParam(required = false, defaultValue = "0") int page,
