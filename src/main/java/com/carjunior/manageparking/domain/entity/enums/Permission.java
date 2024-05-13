@@ -18,6 +18,7 @@ public enum Permission implements GrantedAuthority {
     USER_UPDATE,
     USER_LIST,
     USER_DETAIL,
+    USER_CHANGE_STATUS,
 
     PARKING_CONTROL_VEHICLE_ENTRANCE,
     PARKING_CONTROL_FINISH_VEHICLE_ENTRANCE,

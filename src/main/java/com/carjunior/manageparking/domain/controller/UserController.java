@@ -50,6 +50,7 @@ public class UserController {
     }
 
     @PatchMapping("/{userId}/change-status")
+    @PreAuthorize("hasAnyAuthority('USER_CHANGE_STATUS')")
     public ResponseEntity<Void> changeStatus(@PathVariable(name = "userId") long userId,
                                              @RequestParam(name = "status") UserStatus status) {
         userService.changeStatus(userId, status);
