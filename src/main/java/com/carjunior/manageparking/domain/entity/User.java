@@ -42,16 +42,16 @@ public class User {
     private List<Vehicle> vehicles = new ArrayList<>();
 
     @Builder.Default
-    @ElementCollection
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "user_roles", schema = "dbo", joinColumns = @JoinColumn(name = "user_id"))
     private Set<RoleType> roles = new HashSet<>();
 
     @Builder.Default
-    @ElementCollection
     @Column(name = "permission")
     @Enumerated(EnumType.STRING)
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "user_permissions", schema = "dbo", joinColumns = @JoinColumn(name = "user_id"))
     private Set<Permission> permissions = new HashSet<>();
 

@@ -20,6 +20,7 @@ import java.util.function.Function;
 public class JwtService {
 
     private final String MOMENT_SECRET = "fTiMhmbv3mTmgtcG7o1TjOwGbgfqxN7lphux2pFwBkU=";
+    private final long EXPIRATION_TIME = 1000 * 60 * 60 * 10;
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
@@ -62,7 +63,7 @@ public class JwtService {
                 .setClaims(claims)
                 .setSubject(username)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60))
+                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(getSignKey(), SignatureAlgorithm.HS256).compact();
     }
 

@@ -8,12 +8,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.atomic.AtomicReference;
 
-@Component
+@Service
 @RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
     private final UserRepository userRepository;
@@ -26,7 +25,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .ifPresentOrElse(
                         user -> userDetails.set(
                                 CustomUserDetails.builder()
-                                        .username(user.getName())
+                                        .username(user.getEmail())
                                         .password(user.getPassword())
                                         .authorities(user.getPermissions())
                                         .build()
