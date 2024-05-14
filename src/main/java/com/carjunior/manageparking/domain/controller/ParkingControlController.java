@@ -51,6 +51,7 @@ public class ParkingControlController {
                 .build();
         return ResponseEntity.ok(parkingControlService.getSummaryParkingControl(parkingId, parkingControlSearch));
     }
+
     @GetMapping("{parkingId}/summary-per-hour")
     public ResponseEntity<List<SummaryPerHour>> getSummaryParkingControlPerHour(
             @PathVariable(name = "parkingId") long parkingId

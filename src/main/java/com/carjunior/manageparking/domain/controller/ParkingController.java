@@ -26,6 +26,7 @@ public class ParkingController {
     }
 
     @PutMapping("/{parkingId}")
+    @PreAuthorize("hasAuthority('PARKING_UPDATE')")
     public ResponseEntity<ParkingDetailDto> update(
             @PathVariable(name = "parkingId") long parkingId,
             @Valid @RequestBody ParkingCreateUpdateDto parkingUpdateDto) {
@@ -38,6 +39,7 @@ public class ParkingController {
     }
 
     @GetMapping("/{parkingId}")
+    @PreAuthorize("hasAuthority('PARKING_DETAIL')")
     public ResponseEntity<ParkingDetailDto> getById(@PathVariable(name = "parkingId") long parkingId) {
         return ResponseEntity
                 .ok(modelMapperService.toObject(ParkingDetailDto.class, parkingService.getParkingById(parkingId)));
