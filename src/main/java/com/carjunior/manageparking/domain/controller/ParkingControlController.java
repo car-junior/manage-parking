@@ -11,6 +11,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -26,6 +27,7 @@ public class ParkingControlController {
     private final ParkingControlService parkingControlService;
 
     @PostMapping
+    @PreAuthorize("hasAuthority('PARKING_CONTROL_VEHICLE_ENTRANCE')")
     public ResponseEntity<EntranceDetailDto> createEntrance(
             @Valid @RequestBody EntranceCreateDto entrance) {
         var parkingControl = parkingControlService.createEntrance(entrance);
