@@ -35,14 +35,15 @@ public class ParkingControlController {
     }
 
     @PatchMapping("/{parkingControlId}")
+    @PreAuthorize("hasAuthority('PARKING_CONTROL_FINISH_VEHICLE_ENTRANCE')")
     public ResponseEntity<Void> finishEntrance(
             @PathVariable(name = "parkingControlId") long parkingControlId) {
         parkingControlService.finishEntrance(parkingControlId);
         return ResponseEntity.noContent().build();
     }
 
-    //    VAI PRECISAR DE PERMISSÃO E PERFIL
     @GetMapping("{parkingId}/summary")
+    @PreAuthorize("hasAuthority('PARKING_CONTROL_SUMMARY')")
     public ResponseEntity<SummaryDetailDto> getSummaryParkingControl(
             @PathVariable(name = "parkingId") long parkingId,
             @RequestParam(name = "startAt", required = false) @DateTimeFormat(iso = DATE_TIME) LocalDateTime startAt,
@@ -55,6 +56,7 @@ public class ParkingControlController {
     }
 
     @GetMapping("{parkingId}/summary-per-hour")
+    @PreAuthorize("hasAuthority('PARKING_CONTROL_SUMMARY_PER_HOUR')")
     public ResponseEntity<List<SummaryPerHour>> getSummaryParkingControlPerHour(
             @PathVariable(name = "parkingId") long parkingId
     ) {
