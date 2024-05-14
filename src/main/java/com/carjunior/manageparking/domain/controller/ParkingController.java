@@ -8,6 +8,7 @@ import com.carjunior.manageparking.domain.service.ParkingService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -18,6 +19,7 @@ public class ParkingController {
     private final ModelMapperService modelMapperService;
 
     @PostMapping
+    @PreAuthorize("hasAuthority('PARKING_CREATE')")
     public ResponseEntity<ParkingDetailDto> create(@Valid @RequestBody ParkingCreateUpdateDto parkingCreateDto) {
         var parking = parkingService.saveParking(modelMapperService.toObject(Parking.class, parkingCreateDto));
         return ResponseEntity.ok(modelMapperService.toObject(ParkingDetailDto.class, parking));

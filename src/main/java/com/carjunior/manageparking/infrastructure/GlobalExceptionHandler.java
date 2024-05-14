@@ -41,7 +41,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)
-    public  ResponseEntity<Map<String, Object>> handleDataIntegrityViolationException(DataIntegrityViolationException exception) {
+    public ResponseEntity<Map<String, Object>> handleDataIntegrityViolationException(DataIntegrityViolationException exception) {
         exception.printStackTrace();
         var customException = CustomException.builder()
                 .httpStatus(HttpStatus.BAD_REQUEST)
@@ -50,6 +50,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(customException.getHttpStatus())
                 .body(customException.getHandleCustomException());
     }
+
     private Map<String, Object> paramsNotValid(Map<String, List<String>> errors) {
         var params = new LinkedHashMap<String, Object>();
         params.put("status", HttpStatus.BAD_REQUEST.value());
