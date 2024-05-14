@@ -12,6 +12,7 @@ import com.carjunior.manageparking.domain.spec.search.VehicleSearch;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import static com.carjunior.manageparking.domain.utils.Utility.createPagination;
@@ -24,12 +25,14 @@ public class VehicleController {
     private final ModelMapperService modelMapperService;
 
     @PostMapping
+    @PreAuthorize("hasAuthority('VEHICLE_CREATE')")
     public ResponseEntity<VehicleDetailDto> create(@Valid @RequestBody VehicleCreateUpdateDto vehicleCreateDto) {
         var vehicle = vehicleService.saveVehicle(modelMapperService.toObject(Vehicle.class, vehicleCreateDto));
         return ResponseEntity.ok(modelMapperService.toObject(VehicleDetailDto.class, vehicle));
     }
 
     @PutMapping("/{vehicleId}")
+    @PreAuthorize("hasAuthority('VEHICLE_UPDATE')")
     public ResponseEntity<VehicleDetailDto> update(
             @PathVariable(name = "vehicleId") long vehicleId,
             @Valid @RequestBody VehicleCreateUpdateDto vehicleUpdateDto) {
@@ -42,12 +45,14 @@ public class VehicleController {
     }
 
     @GetMapping("/{vehicleId}")
+    @PreAuthorize("hasAuthority('VEHICLE_DETAIL')")
     public ResponseEntity<VehicleDetailDto> getById(@PathVariable(name = "vehicleId") long vehicleId) {
         return ResponseEntity
                 .ok(modelMapperService.toObject(VehicleDetailDto.class, vehicleService.getVehicleById(vehicleId)));
     }
 
     @GetMapping
+    @PreAuthorize("hasAuthority('VEHICLE_LIST')")
     public ResponseEntity<PageResult<VehicleListDto>> getAll(
             @RequestParam(name = "q", required = false) String query,
             @RequestParam(name = "type", required = false) VehicleType type,
