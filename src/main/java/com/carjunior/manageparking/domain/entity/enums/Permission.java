@@ -23,7 +23,10 @@ public enum Permission implements GrantedAuthority {
     PARKING_CONTROL_VEHICLE_ENTRANCE,
     PARKING_CONTROL_FINISH_VEHICLE_ENTRANCE,
     PARKING_CONTROL_SUMMARY,
-    PARKING_CONTROL_SUMMARY_PER_HOUR;
+    PARKING_CONTROL_SUMMARY_PER_HOUR,
+
+    TEST_OAP
+    ;
 
     @Override
     public String getAuthority() {

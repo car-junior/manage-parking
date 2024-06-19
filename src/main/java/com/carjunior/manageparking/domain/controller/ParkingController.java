@@ -25,6 +25,11 @@ public class ParkingController {
         return ResponseEntity.ok(modelMapperService.toObject(ParkingDetailDto.class, parking));
     }
 
+    // hasAuthority
+    // PreHasAuthority
+    // PreAnyAuthority
+    // PreAndAuthority
+    // hasAnyAuthority
     @PutMapping("/{parkingId}")
     @PreAuthorize("hasAuthority('PARKING_UPDATE')")
     public ResponseEntity<ParkingDetailDto> update(

@@ -1,6 +1,9 @@
 spring:
   application:
     name: '@project.name@'
+  devtools:
+    livereload:
+      enabled: true
   flyway:
     enabled: true
     out-of-order: true
